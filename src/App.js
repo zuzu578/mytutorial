@@ -1,24 +1,39 @@
-import logo from './logo.svg';
 import './App.css';
+import {useState,useEffect} from 'react';
+import axios from 'axios'
+//import FetchData from './views/Temp';
+
 
 function App() {
+
+  let [temp , setTemp] = useState(null);
+  let temp2 = [];
+
+  // useEffect 한번만 실행 => [] 추가시 첫 렌더링일때만 실행 
+  /* */
+  useEffect(()=>{
+    
+    async function fetchData(){
+      
+      const fetch = await axios.get('https://kr.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=RGAPI-f49d623b-e8cb-49d4-98bc-a4fe51bfce95');
+      setTemp(fetch.data.freeChampionIdsForNewPlayers);
+      //console.log(fetch.data.freeChampionIdsForNewPlayers);  
+    }
+
+    fetchData();
+    
+
+  },[]);
   return (
+
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {temp.map((championId, index) => (
+        <div key={index}>
+          {championId}
+        </div>
+      ))}
     </div>
+    
   );
 }
 
