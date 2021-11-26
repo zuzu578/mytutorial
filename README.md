@@ -1,6 +1,7 @@
 # 리액트에서 useEffect 사용하기 
 - 리액트에서 useEffect를 사용하여 api 를 fetch 하는작업을 해봅니다.
- <img width="1067" alt="스크린샷 2021-11-26 오후 2 56 28" src="https://user-images.githubusercontent.com/69393030/143533890-0578ef89-681c-41ce-b6bf-f3bb8359f0ca.png">
+ <img width="1067" alt="스크린샷 2021-11-26 오후 3 22 45" src="https://user-images.githubusercontent.com/69393030/143536189-899e2b7f-e993-46bb-bb78-719f56aab816.png">
+
 - useEffect 는 컴포넌트가 마운트될때 실행됩니다. 
 - [] 추가시 첫 렌더링일때만 실행됩니다.
 # useEffect 에서 async 사용방법 
