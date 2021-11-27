@@ -11,13 +11,14 @@ function App() {
 
   // useEffect 한번만 실행 => [] 추가시 첫 렌더링일때만 실행 
   /* */
+  
   useEffect(()=>{
     
     async function fetchData(){
       
       try{
 
-        const fetch = await axios.get('https://kr.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=RGAPI-f49d623b-e8cb-49d4-98bc-a4fe51bfce95');
+        const fetch = await axios.get('https://kr.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=RGAPI-1d4a6fc3-5e2c-4c0c-bf81-9b1f09109e62');
         setTemp(fetch.data);
       
       }catch(error){
@@ -31,16 +32,22 @@ function App() {
     
 
   },[]);
+  
 
-  console.log(temp);
+  
+
+
   return (
 
     <div className="App">
+
+   
       {temp.freeChampionIdsForNewPlayers.map((championId, index) => (
         <div key={index}>
           {championId}
         </div>
-      ))}
+      ))
+      }
     </div>
     
   );
