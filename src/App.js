@@ -1,5 +1,5 @@
 import './App.css';
-import {useState,useEffect} from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios'
 //import FetchData from './views/Temp';
 import axiosFetchFnc from './common/commonAxios';
@@ -7,7 +7,7 @@ import FetchUserData from './views/FetchUserInfo';
 
 function App() {
 
-  let [temp , setTemp] = useState({freeChampionIdsForNewPlayers:[]});
+  let [temp, setTemp] = useState({ freeChampionIdsForNewPlayers: [] });
 
   // useEffect 한번만 실행 => [] 추가시 첫 렌더링일때만 실행 
   /* 
@@ -25,16 +25,16 @@ function App() {
   return (
 
     <div className="App">
-      
+
       {/*temp.freeChampionIdsForNewPlayers.map((championId, index) => (
         <div key={index}>
           {championId}
         </div>
       ))
       */}
-      <FetchUserData/>
+      <FetchUserData />
     </div>
-    
+
   );
 }
 

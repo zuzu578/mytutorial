@@ -11,7 +11,7 @@ const api_key = 'RGAPI-d0c308ae-0ebf-470f-a459-17a9ab6edd09';
 const FetchUserData = () => {
     let [userName, setUserName] = useState('');
     let [findData, setFindData] = useState('');
-    let [matchList , setMatchList] = useState('');
+    let [matchList, setMatchList] = useState('');
 
     const search = () => {
         let matchList = [];
@@ -34,8 +34,8 @@ const FetchUserData = () => {
                 )
             }
             Promise.all(promises).then(() => {
-             //console.log('matchList ==>',matchList);
-             setMatchList(matchList);
+                //console.log('matchList ==>',matchList);
+                setMatchList(matchList);
             })
         });
 
@@ -45,7 +45,7 @@ const FetchUserData = () => {
             <h1>search</h1>
             <input type="text" onChange={(e) => { setUserName(e.target.value) }} ></input>
             <button type="button" onClick={search} name="button" id="button"> 검색</button>
-            <FetchUserInfoRendering findData={findData} matchList = {matchList} />
+            <FetchUserInfoRendering findData={findData} matchList={matchList} />
         </div>
 
     )

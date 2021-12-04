@@ -5,13 +5,20 @@
  * @returns 
  */
 const FetchUserInfoRendering = (props) => {
-    //console.log('props1 =>', props.matchList);
+   
     let tempArr = [];
+    let obj = {};
     for (let i = 0; i < props.matchList.length; i++) {
-        //console.log('matchList => ', props.matchList[i].data.info.gameMode)
-        tempArr.push(props.matchList[i].data.info.gameMode);
+        //console.log('matchList => ', props.matchList[i].data.info.gameStartTimestamp)
+        obj = {
+            gameStartTimestamp : props.matchList[i].data.info.gameStartTimestamp,
+            gameType : props.matchList[i].data.info.gameType,
+        }
+        tempArr.push(obj);
+      
     }
-    //console.log('tempArr',tempArr);
+    console.log(tempArr);
+  
     if (props.findData) {
         return (
             <div className="resultArea">
@@ -21,13 +28,12 @@ const FetchUserInfoRendering = (props) => {
 
                 {tempArr.map((items, index) => (
                     <div key={index}>
-                        {items}
+                         {items.gameStartTimestamp}
+                        {items.gameType}
                     </div>
                 ))
                 }
             </div>
-
-
         )
 
     } else {
