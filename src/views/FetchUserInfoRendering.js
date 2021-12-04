@@ -5,20 +5,36 @@
  * @returns 
  */
 const FetchUserInfoRendering = (props) => {
-   
+    //console.log('name => ', props.findData.name);
     let tempArr = [];
     let obj = {};
+    let filterMatchInfo = [];
+
     for (let i = 0; i < props.matchList.length; i++) {
-        //console.log('matchList => ', props.matchList[i].data.info.gameStartTimestamp)
-        obj = {
-            gameStartTimestamp : props.matchList[i].data.info.gameStartTimestamp,
-            gameType : props.matchList[i].data.info.gameType,
+
+        for(let j = 0 ; j < props.matchList[i].data.info.participants.length ; j++){
+
+            if(props.findData.name === props.matchList[i].data.info.participants[j].summonerName){
+
+                obj = {
+                    gameStartTimestamp: props.matchList[i].data.info.gameStartTimestamp,
+                    gameType: props.matchList[i].data.info.gameType,
+                    championName:props.matchList[i].data.info.participants[j].championName,
+                    role:props.matchList[i].data.info.participants[j].role,
+                    
+                }
+                //console.log('matchList => ', props.matchList[i].data.info.participants[j]);
+           }
+            
         }
+        
         tempArr.push(obj);
-      
+
     }
-    console.log(tempArr);
-  
+
+   // console.log('tempArr =>' , tempArr);
+
+
     if (props.findData) {
         return (
             <div className="resultArea">
@@ -28,8 +44,10 @@ const FetchUserInfoRendering = (props) => {
 
                 {tempArr.map((items, index) => (
                     <div key={index}>
-                         {items.gameStartTimestamp}
+                        {items.gameStartTimestamp}
                         {items.gameType}
+                        {items.championName}
+                        {items.role}
                     </div>
                 ))
                 }
