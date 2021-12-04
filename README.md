@@ -21,3 +21,6 @@
   },[]);
   
  이렇게 useEffect 안에 async function 을 선언 , 그후 호출하여 api 를 fetch 합니다. 
+
+# for loop axios (반복문 안에서 axios promise 통신 하기)
+<img width="802" alt="스크린샷 2021-12-04 오후 5 42 31" src="https://user-images.githubusercontent.com/69393030/144703406-25e591f7-0c5a-412b-8723-bde36ddc9f40.png">
