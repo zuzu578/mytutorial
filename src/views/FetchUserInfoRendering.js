@@ -4,29 +4,40 @@
  * @param {*} props 
  * @returns 
  */
-const FetchUserInfoRendering = (props) =>{
-
-   console.log('props => ', props.findData);
-    if(props.findData){
-        return(
-
-            <div> 
-                <h1> rendering userinfoData </h1>
-                <img src={'https://opgg-static.akamaized.net/images/profile_icons/profileIcon'+props.findData.profileIconId+'.jpg?image=q_auto:best&v=1518361200'}/>
-                {props.findData.name}<br/>
-                <br/>
+const FetchUserInfoRendering = (props) => {
+    //console.log('props1 =>', props.matchList);
+    let tempArr = [];
+    for (let i = 0; i < props.matchList.length; i++) {
+        //console.log('matchList => ', props.matchList[i].data.info.gameMode)
+        tempArr.push(props.matchList[i].data.info.gameMode);
+    }
+    //console.log('tempArr',tempArr);
+    if (props.findData) {
+        return (
+            <div className="resultArea">
+                <img src={'https://opgg-static.akamaized.net/images/profile_icons/profileIcon' + props.findData.profileIconId + '.jpg?image=q_auto:best&v=1518361200'} />
+                <span>{props.findData.name}</span>
                 {props.findData.summonerLevel}
+
+                {tempArr.map((items, index) => (
+                    <div key={index}>
+                        {items}
+                    </div>
+                ))
+                }
             </div>
+
+
         )
 
-    }else{
-        return(
+    } else {
+        return (
             <div>
-                
+
             </div>
         )
     }
-    
+
 
 
 }
