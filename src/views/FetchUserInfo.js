@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios'
 import AxiosFetchFnc from '../common/commonAxios';
 import FetchUserInfoRendering from '../views/FetchUserInfoRendering';
-const api_key = 'RGAPI-d0c308ae-0ebf-470f-a459-17a9ab6edd09';
+const api_key = 'RGAPI-61dbbf48-6237-4321-8a9d-7f4382d9b695';
 /**
  * 유저의 닉네임을 받아서 , 해당 닉네임에 대한 데이터를 fetch 한다. 그런다음 , state 에 저장한다. 
  * 역할 : 데이터 fetch / 저장 
@@ -16,7 +16,7 @@ const FetchUserData = () => {
     const search = () => {
         let matchList = [];
         let promises = [];
-
+        // callback() => 다른 함수의 인자로 전달되는 함수 
         AxiosFetchFnc(userName, api_key, function (result, result2) {
 
             setFindData(result.data);
