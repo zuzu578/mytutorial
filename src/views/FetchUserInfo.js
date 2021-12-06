@@ -18,7 +18,11 @@ const FetchUserData = () => {
         let matchList = [];
         let promises = [];
         // callback() => 다른 함수의 인자로 전달되는 함수 
-        AxiosFetchFnc(userName, api_key, function (result, result2) {
+        let hashParams = {
+            userName : userName,
+            api_key : api_key,
+        }
+        AxiosFetchFnc(hashParams, function (result, result2) {
             // fetch한 result 데이터를 callback 으로 받은후 , state 에 저장 
             setFindData(result.data);
             // fetch 한 유저 정보중에서 encrytedSummoner id 를 빼와서 state 에 저장 ( 공통 값 사용 )

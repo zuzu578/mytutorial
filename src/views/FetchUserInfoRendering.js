@@ -8,6 +8,7 @@ import FetchInageData from './FetchInagmeData';
  * @returns 
  */
 const FetchUserInfoRendering = (props) => {
+    let [ingameData , setIngameData] = useState('');
 
     let tempArr = [];
     let obj = {};
@@ -39,14 +40,20 @@ const FetchUserInfoRendering = (props) => {
         tempArr.push(obj);
 
     }
+
     if (props.findData) {
         return (
             <div className="resultArea">
-                <button onClick={(e) => { FetchInageData(props.encryptedSummonerId, e) }}> 인게임 정보</button>
-                <button onClick={() => { alert(props.encryptedSummonerId) }}> test </button>
 
+                <button onClick={(e) => { FetchInageData(props.encryptedSummonerId, e,function(result){
+                    //console.log('result 인게임정보 => ' , result.data);
+                    setIngameData(result.data);
+                   // console.log('ingameData ==> ' , ingameData);
 
-                <h1> {props.encryptedSummonerId}</h1>
+                }) }}>인게임 정보가져오기 </button><br/>
+                <div className="ingameArea">
+                    {ingameData.gameId}
+                </div>
                 <img src={'https://opgg-static.akamaized.net/images/profile_icons/profileIcon' + props.findData.profileIconId + '.jpg?image=q_auto:best&v=1518361200'} />
                 <span>{props.findData.name}</span>
                 {props.findData.summonerLevel}
