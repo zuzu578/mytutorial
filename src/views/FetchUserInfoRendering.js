@@ -1,3 +1,6 @@
+// 소환사 게임정보 data fetch function module import 
+import { useState } from 'react';
+import FetchInageData from './FetchInagmeData';
 /**
  * fetch 하고 ,state 에 저장한 데이터를 rendering 해주는 역할을 하는 컴포넌트 
  * 역할 : fetch 한 데이터를 rendering 해주는 역할 
@@ -9,6 +12,7 @@ const FetchUserInfoRendering = (props) => {
     let tempArr = [];
     let obj = {};
 
+    //console.log('props =>' , props.encryptedSummonerId);
     for (let i = 0; i < props.matchList.length; i++) {
 
         for (let j = 0; j < props.matchList[i].data.info.participants.length; j++) {
@@ -28,42 +32,41 @@ const FetchUserInfoRendering = (props) => {
                     item5: props.matchList[i].data.info.participants[j].item5,
                     item6: props.matchList[i].data.info.participants[j].item6,
                 }
-                console.log('matchList => ', props.matchList[i].data.info.participants[j].item0);
+                //console.log('matchList => ', props.matchList[i].data.info.participants[j].item0);
             }
         }
 
         tempArr.push(obj);
 
     }
-
-    console.log('tempArr =>', tempArr);
-
-
     if (props.findData) {
         return (
             <div className="resultArea">
+                <button onClick={(e) => { FetchInageData(props.encryptedSummonerId, e) }}> 인게임 정보</button>
+                <button onClick={() => { alert(props.encryptedSummonerId) }}> test </button>
+
+
+                <h1> {props.encryptedSummonerId}</h1>
                 <img src={'https://opgg-static.akamaized.net/images/profile_icons/profileIcon' + props.findData.profileIconId + '.jpg?image=q_auto:best&v=1518361200'} />
                 <span>{props.findData.name}</span>
                 {props.findData.summonerLevel}
                 <h1 className="matchTitle">매치정보</h1>
                 <div className="table_items">
-                <table>
-                    <tbody>
-                        {tempArr.map(function (items, index) {
-                            return (
-                                <tr key={index}>
-                                    <td>{items.gameStartTimestamp}</td>
-                                    <td>{items.gameType}</td>
-                                    <td>{items.championName}</td>
-                                    <td>{items.role}</td>
+                    <table>
+                        <tbody>
+                            {tempArr.map(function (items, index) {
+                                return (
+                                    <tr key={index}>
+                                        <td>{items.gameStartTimestamp}</td>
+                                        <td>{items.gameType}</td>
+                                        <td>{items.championName}</td>
+                                        <td>{items.role}</td>
 
-                                </tr>
-                            );
-                        })}
-
-
-                    </tbody>
-                </table>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         )
