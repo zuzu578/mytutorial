@@ -23,10 +23,22 @@ const AxiosFetchFnc = async (hashParams, callback) => {
 
     } else if (hashParams.encryptedSummonerId) {
       //console.log('encryptedSummonerId 가 있을경우 , 인게임 정보리스트를 가져온다. ')
+      try{
+        // 검색한 소환사가 게임중일 경우 , 게임데이터를 가져온다. 
+        const fetchIngameData = await axios.get('https://kr.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/' + hashParams.encryptedSummonerId + '?api_key=' + hashParams.api_key + '')
+        return callback(fetchIngameData.data);
 
-      const fetchIngameData = await axios.get('https://kr.api.riotgames.com/lol/spectator/v4/active-games/by-summoner/' + hashParams.encryptedSummonerId + '?api_key=' + hashParams.api_key + '')
+        // 검색한 소환사가 게임중이 아닐경우 , 예외처리를 해준다! 
+      }catch(error){
+        
+        let result = {
+          data:'해당 소환사는 게임중이 아닙니다.',
+        }
+        
+        return callback(result);
+      }
 
-      return callback(fetchIngameData);
+
 
     }
 

@@ -1,6 +1,6 @@
 // 소환사 게임정보 data fetch function module import 
 import { useState } from 'react';
-import FetchInageData from './FetchInagmeData';
+import FetchInagmeData from './FetchInagmeData';
 /**
  * fetch 하고 ,state 에 저장한 데이터를 rendering 해주는 역할을 하는 컴포넌트 
  * 역할 : fetch 한 데이터를 rendering 해주는 역할 
@@ -45,10 +45,10 @@ const FetchUserInfoRendering = (props) => {
         return (
             <div className="resultArea">
 
-                <button onClick={(e) => { FetchInageData(props.encryptedSummonerId, e,function(result){
-                    //console.log('result 인게임정보 => ' , result.data);
-                    setIngameData(result.data);
-                   // console.log('ingameData ==> ' , ingameData);
+                <button onClick={(e) => { FetchInagmeData(props.encryptedSummonerId, e,function(result){
+                   // console.log('result 인게임정보 => ' , result);
+                    setIngameData(result);
+                  console.log('ingameData ==> ' , ingameData.participants);
 
                 }) }}>인게임 정보가져오기 </button><br/>
                 <div className="ingameArea">

@@ -6,9 +6,9 @@ import api_key from '../common/api_key';
  * @param {*} params 
  * @param {*} e 
  */
-const FetchInageData = (encryptedSummonerId, e,callback) => {
+const FetchInagmeData = (encryptedSummonerId, e,callback) => {
     e.preventDefault();
-    console.log(encryptedSummonerId);
+    //console.log(encryptedSummonerId);
     let hashParams = {
         encryptedSummonerId : encryptedSummonerId,
         api_key: api_key,
@@ -20,4 +20,4 @@ const FetchInageData = (encryptedSummonerId, e,callback) => {
     })
     
 }
-export default FetchInageData;
+export default FetchInagmeData;
