@@ -80,7 +80,6 @@ const FetchUserInfoRendering = (props) => {
                                         <td>{items.gameType}</td>
                                         <td>{items.championName}</td>
                                         <td>{items.role}</td>
-
                                     </tr>
                                 );
                             })}
