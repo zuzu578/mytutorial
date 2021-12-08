@@ -24,3 +24,59 @@
 
 # for loop axios (반복문 안에서 axios promise 통신 하기)
 <img width="802" alt="스크린샷 2021-12-04 오후 5 42 31" src="https://user-images.githubusercontent.com/69393030/144703406-25e591f7-0c5a-412b-8723-bde36ddc9f40.png">
+
+``` javascript
+
+/**
+ * callback 방법
+ * */
+
+ const getData = (callback) =>{ 
+    
+    return callback(20);
+ }
+
+ getData(function(result){
+   console.log(result);
+ })
+
+
+/**
+ *  promise ( await / async )
+ *  */
+
+ const fetchMyData = () =>{
+   return new Promise((resolve , reject)=>{
+     resolve(axios.get('https://kr.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=RGAPI-d5b5b4c0-a883-4594-b46b-aa33242fe5e8'))
+   })
+ }
+
+ const redneringData = async() =>{
+
+   const data = await fetchMyData();
+   console.log(data.data);
+
+
+ }
+ fetchMyData();
+ redneringData();
+
+
+
+/**
+ * promise chain 
+ * */
+
+ const fetchData = (promise) =>{
+   return new Promise((resovle,result)=>{
+     resovle(axios.get('https://kr.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=RGAPI-d5b5b4c0-a883-4594-b46b-aa33242fe5e8'))
+   })
+ }
+fetchData().then((res)=>{
+  console.log(res.data.freeChampionIds);
+  if(res.data.freeChampionIds[0] === 1 ){
+    console.log('0번째 값은 1입니다.');
+  }else{
+    console.log('아닙니다.');
+  }
+})
