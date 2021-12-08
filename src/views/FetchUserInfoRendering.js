@@ -1,6 +1,7 @@
 // 소환사 게임정보 data fetch function module import 
 import { useState } from 'react';
 import FetchInagmeData from './FetchInagmeData';
+import IngameRenderComponent from './IngameRenderComponent';
 /**
  * fetch 하고 ,state 에 저장한 데이터를 rendering 해주는 역할을 하는 컴포넌트 
  * 역할 : fetch 한 데이터를 rendering 해주는 역할 
@@ -9,10 +10,11 @@ import FetchInagmeData from './FetchInagmeData';
  */
 const FetchUserInfoRendering = (props) => {
     let [ingameData , setIngameData] = useState('');
+    let [fetchIngameDataButton , setFetchIngameDataButton] = useState(false);
 
     let tempArr = [];
     let obj = {};
-
+   
     //console.log('props =>' , props.encryptedSummonerId);
     for (let i = 0; i < props.matchList.length; i++) {
 
@@ -40,20 +42,28 @@ const FetchUserInfoRendering = (props) => {
         tempArr.push(obj);
 
     }
-
     if (props.findData) {
         return (
             <div className="resultArea">
 
                 <button onClick={(e) => { FetchInagmeData(props.encryptedSummonerId, e,function(result){
-                   // console.log('result 인게임정보 => ' , result);
-                    setIngameData(result);
-                  console.log('ingameData ==> ' , ingameData.participants);
+
+                  setIngameData(result);
+                  if(fetchIngameDataButton === false){
+                    setFetchIngameDataButton(true);
+                  }else{
+                    setFetchIngameDataButton(false);
+                  }
+                  
+                 // console.log('fetchIngameDataButton ==> ' , fetchIngameDataButton);
 
                 }) }}>인게임 정보가져오기 </button><br/>
-                <div className="ingameArea">
-                    {ingameData.gameId}
-                </div>
+                {
+                    fetchIngameDataButton === true
+                    ?<IngameRenderComponent ingameData = {ingameData}/>
+                    : null
+                }
+                
                 <img src={'https://opgg-static.akamaized.net/images/profile_icons/profileIcon' + props.findData.profileIconId + '.jpg?image=q_auto:best&v=1518361200'} />
                 <span>{props.findData.name}</span>
                 {props.findData.summonerLevel}

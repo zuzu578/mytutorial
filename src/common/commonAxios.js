@@ -31,11 +31,7 @@ const AxiosFetchFnc = async (hashParams, callback) => {
         // 검색한 소환사가 게임중이 아닐경우 , 예외처리를 해준다! 
       }catch(error){
         
-        let result = {
-          data:'해당 소환사는 게임중이 아닙니다.',
-        }
-        
-        return callback(result);
+        return callback(false);
       }
 
 
