@@ -52,9 +52,14 @@
  }
 
  const redneringData = async() =>{
-
-   const data = await fetchMyData();
-   console.log(data.data);
+   try{
+     const data = await fetchMyData();
+     console.log(data.data);
+     
+   }catch(error){
+     console.log(error)
+   }
+   
 
 
  }
