@@ -1,5 +1,10 @@
+/**
+ * 인게임 정보를 렌더링 해주는 component 
+ * @param {*} props 
+ * @returns 
+ */
 const IngameRenderComponent = (props) =>{
-    console.log('props data =>' , props.ingameData);
+   // console.log('props data =>' , props.searchNameData);
     if(props.ingameData){
         return(
             <div>
@@ -9,7 +14,7 @@ const IngameRenderComponent = (props) =>{
     }else{
         return(
             <div> 
-                <h1> 해당 소환사는 게임중이 아닙니다.</h1>
+                <h1> {props.searchNameData} 님은 현재 게임중이 아닙니다.</h1>
             </div>
         )
     }

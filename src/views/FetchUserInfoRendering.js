@@ -49,18 +49,20 @@ const FetchUserInfoRendering = (props) => {
                 <button onClick={(e) => { FetchInagmeData(props.encryptedSummonerId, e,function(result){
 
                   setIngameData(result);
+                  /**
+                   * setFetchIngameDataButton 
+                   * 인게임정보 modal 의 상태 값 true , false 를 설정합니다. 
+                   */
                   if(fetchIngameDataButton === false){
                     setFetchIngameDataButton(true);
                   }else{
                     setFetchIngameDataButton(false);
                   }
-                  
-                 // console.log('fetchIngameDataButton ==> ' , fetchIngameDataButton);
-
+                
                 }) }}>인게임 정보가져오기 </button><br/>
                 {
                     fetchIngameDataButton === true
-                    ?<IngameRenderComponent ingameData = {ingameData}/>
+                    ?<IngameRenderComponent ingameData = {ingameData} searchNameData = {props.findData.name}/>
                     : null
                 }
                 
