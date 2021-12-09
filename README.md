@@ -124,3 +124,79 @@ const renderingData = async()=>{
 }
 
 renderingData();
+``` 
+# promise chainning 을 이용하여 데이터 가져와보기 + (for loop 안에서 axios 통신 , promise return 해보기)
+``` javascript
+
+const fetchUserInfo = (promise) =>{
+    return new Promise((resolve , reject)=>{
+      resolve(axios.get('https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/%EC%98%A4%EC%88%9C%EB%8F%84%EC%88%9C%EB%8F%84%EB%9E%80%EB%8F%84%EB%9E%80?api_key=RGAPI-519943fc-ea1a-43f2-a34f-54e29133fea7'))
+    })
+}
+
+fetchUserInfo()
+.then((res)=>{
+  let puuid = res.data.puuid;
+  return puuid;
+})
+.then((res)=>{
+  let puuid = res;
+  return new Promise((resolve , reject) =>{
+    resolve(axios.get('https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/'+puuid+'/ids?start=0&count=5&api_key=RGAPI-519943fc-ea1a-43f2-a34f-54e29133fea7'))
+  })
+})
+.then((res)=>{
+  let promises = [];
+  let matchList = [];
+  //console.log(res.data);
+   for (let i = 0; i < res.data.length; i++) {
+     //console.log(res.data[i]);
+                promises.push(
+                   axios.get('https://asia.api.riotgames.com/lol/match/v5/matches/'+res.data[i]+'?api_key=RGAPI-519943fc-ea1a-43f2-a34f-54e29133fea7')
+                        .then(response => {
+                            matchList.push(response.data.metadata.matchId);
+                            //console.log(response.data.metadata.matchId);
+                        })
+                )
+            }
+            Promise.all(promises).then(() => {
+                console.log('matchList ==>',matchList);
+                
+            })
+})
+
+```
+# callback function 을 이용하여 연쇄적으로 프로그래밍 해보기
+``` javascript
+const fetchUserInfo = async(callback) => {
+  const fetchData = await axios.get('https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/%EC%98%A4%EC%88%9C%EB%8F%84%EC%88%9C%EB%8F%84%EB%9E%80%EB%8F%84%EB%9E%80?api_key=RGAPI-519943fc-ea1a-43f2-a34f-54e29133fea7')
+ 
+  return callback(fetchData.data.puuid);
+}
+const fetchMatchIds = async(puuid,callback) =>{
+  const fetchData = await axios.get('https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/'+puuid+'/ids?start=0&count=5&api_key=RGAPI-519943fc-ea1a-43f2-a34f-54e29133fea7')
+  return callback(fetchData.data);
+}
+const fetchMatchInfo = async(matchIds,callback) =>{
+  let objArr = [];
+  for(let i = 0 ; i < matchIds.length ; i++){
+    const fetchData = await axios.get('https://asia.api.riotgames.com/lol/match/v5/matches/'+matchIds[i]+'?api_key=RGAPI-519943fc-ea1a-43f2-a34f-54e29133fea7')
+    //console.log(fetchData.data.metadata.matchId);
+    objArr.push(fetchData.data.metadata.matchId);
+      //return callback(fetchData.data.metadata.matchId);
+  }
+  return callback(objArr);
+}
+
+fetchUserInfo(function(result){
+  fetchMatchIds(result,function(result2){
+   fetchMatchInfo(result2,function(result3){
+     console.log('final, =>', result3);
+   })
+  })
+
+})
+
+
+```
+
