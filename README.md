@@ -25,6 +25,7 @@
 # for loop axios (반복문 안에서 axios promise 통신 하기)
 <img width="802" alt="스크린샷 2021-12-04 오후 5 42 31" src="https://user-images.githubusercontent.com/69393030/144703406-25e591f7-0c5a-412b-8723-bde36ddc9f40.png">
 
+# 프로미스 , Callback , 프로미스 체인 
 ``` javascript
 
 /**
@@ -85,3 +86,41 @@ fetchData().then((res)=>{
     console.log('아닙니다.');
   }
 })
+
+``` 
+
+# promise (async , await 사용 예제)
+``` javascript
+const fetchUserInfo = () =>{
+    return new Promise((resolve , reject) =>{
+      resolve(axios.get('https://kr.api.riotgames.com/lol/summoner/v4/summoners/by-name/%EC%98%A4%EC%88%9C%EB%8F%84%EC%88%9C%EB%8F%84%EB%9E%80%EB%8F%84%EB%9E%80?api_key=RGAPI-519943fc-ea1a-43f2-a34f-54e29133fea7'));
+    })
+  }
+
+  const fetchMatchIds = (puuid) =>{
+    return new Promise((resolve , reject) =>{
+      resolve(axios.get('https://asia.api.riotgames.com/lol/match/v5/matches/by-puuid/'+puuid+'/ids?start=0&count=5&api_key=RGAPI-519943fc-ea1a-43f2-a34f-54e29133fea7'))
+    })
+
+  }
+
+  const fetchMatchInfo = (matchIds) =>{
+    return new Promise((resolve , reject) =>{
+      resolve(axios.get('https://asia.api.riotgames.com/lol/match/v5/matches/'+matchIds+'?api_key=RGAPI-519943fc-ea1a-43f2-a34f-54e29133fea7'))
+    })
+  }
+
+const renderingData = async()=>{
+  let obj = [];
+  let data1 = await fetchUserInfo();
+  const puuid = data1.data.puuid;
+  let data2 = await fetchMatchIds(puuid);
+
+  for(let i = 0 ; i < data2.data.length; i++){
+    let data3 = await fetchMatchInfo(data2.data[i]);
+    obj.push(data3.data.info.platformId);
+  }
+  console.log('obj =>', obj);
+}
+
+renderingData();
