@@ -4,11 +4,22 @@
  * @returns 
  */
 const IngameRenderComponent = (props) =>{
-   // console.log('props data =>' , props.searchNameData);
+   console.log('props data =>' , props.ingameData.bannedChampions);
     if(props.ingameData){
         return(
             <div>
                 <h1>인게임정보</h1>
+                    <p> 게임중 ! </p>
+                    {
+                        // 밴한 챔피언 id 값 !
+                    props.ingameData.bannedChampions.map(function (items, index) {
+                                return (
+                                    <div key={index}>
+                                        {items.championId}
+                                    </div>
+                                );
+                            })
+                            }
             </div>
         )
     }else{

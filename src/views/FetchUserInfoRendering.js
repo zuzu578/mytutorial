@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import FetchInagmeData from './FetchInagmeData';
 import IngameRenderComponent from './IngameRenderComponent';
+import FetchChampionMastery from './FetchChampionMastery';
 /**
  * fetch 하고 ,state 에 저장한 데이터를 rendering 해주는 역할을 하는 컴포넌트 
  * 역할 : fetch 한 데이터를 rendering 해주는 역할 
@@ -46,7 +47,7 @@ const FetchUserInfoRendering = (props) => {
         return (
             <div className="resultArea">
 
-                <button onClick={(e) => { FetchInagmeData(props.encryptedSummonerId, e,function(result){
+                <button onClick={(e) => {FetchInagmeData(props.encryptedSummonerId, e,function(result){
 
                   setIngameData(result);
                   /**
@@ -60,6 +61,12 @@ const FetchUserInfoRendering = (props) => {
                   }
                 
                 }) }}>인게임 정보가져오기 </button><br/>
+
+                <button onClick={(e)=>{ FetchChampionMastery(props.encryptedSummonerId,e,callback =>{
+                    console.log('render ===>',callback );
+                })}}>챔피언 숙련도 가져오기</button><br/>
+
+
                 {
                     fetchIngameDataButton === true
                     ?<IngameRenderComponent ingameData = {ingameData} searchNameData = {props.findData.name}/>
