@@ -13,12 +13,13 @@ import FetchChampionMasteryRendering from './FetchChampionMasteryRendering';
 const FetchUserInfoRendering = (props) => {
     let [ingameData, setIngameData] = useState('');
     let [fetchIngameDataButton, setFetchIngameDataButton] = useState(false);
-    let [fetchChapMasteryBtn, setChampionMasteryBtn] = useState(false);
+  
     let [championMastery, setChampionMastery] = useState('');
+    let [fetchChapMasteryBtn, setChampionMasteryBtn] = useState(false);
 
     let tempArr = [];
     let obj = {};
-
+    
     //console.log('props =>' , props.encryptedSummonerId);
     for (let i = 0; i < props.matchList.length; i++) {
 
@@ -46,7 +47,9 @@ const FetchUserInfoRendering = (props) => {
         tempArr.push(obj);
 
     }
+    
     if (props.findData) {
+        
         return (
             <div className="resultArea">
 
@@ -67,20 +70,19 @@ const FetchUserInfoRendering = (props) => {
                     })
                 }}>인게임 정보가져오기 </button><br />
 
-                <button onClick={(e) => {
-                    FetchChampionMastery(props.encryptedSummonerId, e, promise => {
-                        
-                        setChampionMastery(promise);
+                <button onClick={async (e) => {
+                     
+                   let fetchData = await FetchChampionMastery(props.encryptedSummonerId, e)
 
-                        if (fetchChapMasteryBtn === false) {
-                            setChampionMasteryBtn(true);
-                        } else {
-                            setChampionMasteryBtn(false);
-                        }
+                   setChampionMastery(fetchData);
 
-                    })
+                   if(fetchChapMasteryBtn === false){
+                    setChampionMasteryBtn(true);
+                    }else{
+                        setChampionMasteryBtn(false);
+                    }
+                    
                 }}>챔피언 숙련도 가져오기</button><br />
-
 
                 { /**
                    * 인게임 정보 rendering component 

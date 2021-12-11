@@ -4,6 +4,7 @@
  * @returns 
  */
 const FetchChampionMasteryRendering = (props) => {
+        console.log('championMastery ->' , props.championMastery);
     return(
         <div>
             <h1>{props.userName}님의 챔피언 숙련도 정보</h1>
