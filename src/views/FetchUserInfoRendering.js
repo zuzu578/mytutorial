@@ -69,6 +69,7 @@ const FetchUserInfoRendering = (props) => {
 
                 <button onClick={(e) => {
                     FetchChampionMastery(props.encryptedSummonerId, e, promise => {
+                        
                         setChampionMastery(promise);
 
                         if (fetchChapMasteryBtn === false) {
