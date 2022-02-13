@@ -21,6 +21,12 @@
   },[]);
   
  이렇게 useEffect 안에 async function 을 선언 , 그후 호출하여 api 를 fetch 합니다. 
+ useEffect 가 하는 일은 무엇인가 
+ useEffect hook 을 사용하여 React 에게 컴포넌트가 렌더링 이후에 어떤일을 수행해야하는 지를 말한다. 즉 ,react 는 우리가 넘긴 함수를 기억했다가 DOM 업데이트를 수행한 이후에 불러낼것이다. 
+ 이러한 것을 통해 데이터를 가져오거나 다른 명령형 api 를 불러내는 일도 할수있다.
+ 
+ # useEffect 를 컴포넌트 안에서 불러내는 이유?
+ useEffect 를 컴포넌트 내부에 둠으로써 effect 를 통해 state 에 접근할수 있게된다. 함수범위 안에 존재하기 때문에 특별한 api 없이도 값을 얻을수있다. hook 은 자바스크립트의 클로저 문법을 이용하여 react에 한정된 api 를 고안하는것보다 자바스크립트가 이미가지고 있는방법을 이용하여 문제를 해결할수있다.
 
 # for loop axios (반복문 안에서 axios promise 통신 하기)
 <img width="802" alt="스크린샷 2021-12-04 오후 5 42 31" src="https://user-images.githubusercontent.com/69393030/144703406-25e591f7-0c5a-412b-8723-bde36ddc9f40.png">
