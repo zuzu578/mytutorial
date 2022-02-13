@@ -1,3 +1,17 @@
+# useState
+
+Cannot read properties of undefined (reading 'map')
+
+state 사용시 , state 값이 초기화 되어있지않은경우 
+ex) 서버에서 배열을 받았는데 setState([]) 로 초기화 하지않은경우 등등 
+
+constructor 와 componentWillMount 가 최초 렌더링 그 이전에 실행 된다 할지라도 비동기 호출은 컴포넌트가 비동기 이전에 렌더링 되는것을 막아주지 못하기 때문 
+<img width="816" alt="스크린샷 2022-02-13 오후 8 53 22" src="https://user-images.githubusercontent.com/69393030/153751809-1b69a785-efd3-48e7-a9f6-239aa37c4253.png">
+
+이러한 경우 state의 초기값을 설정해주면된다.
+
+<img width="816" alt="스크린샷 2022-02-13 오후 8 53 55" src="https://user-images.githubusercontent.com/69393030/153751827-46fb6c98-0728-4bc7-9a04-ef764f9c69d7.png">
+
 # 리액트에서 useEffect 사용하기 
 - 리액트에서 useEffect를 사용하여 api 를 fetch 하는작업을 해봅니다.
  <img width="1067" alt="스크린샷 2021-11-26 오후 3 22 45" src="https://user-images.githubusercontent.com/69393030/143536189-899e2b7f-e993-46bb-bb78-719f56aab816.png">
