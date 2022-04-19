@@ -1,5 +1,4 @@
 .App {
-  text-align: center;
 }
 
 .App-logo {
@@ -27,19 +26,6 @@
 .App-link {
   color: #61dafb;
 }
-.resultArea{
-
-  margin-top:40px;
-
-}
-.image_box{
-  display:flex;
-  justify-content: center;
-  align-items: center;
-}
-.images img{
-  width: 10%;
-}
 
 @keyframes App-logo-spin {
   from {
@@ -48,4 +34,22 @@
   to {
     transform: rotate(360deg);
   }
+}
+.banner_image {
+  text-align: center;
+}
+.banner_image img {
+  width: 50%;
+}
+body {
+  background-color: #4171d6;
+}
+.rotation_champion_image {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.findUser {
+  width: 900px;
+  margin: 0 auto;
 }
