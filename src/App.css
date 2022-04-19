@@ -41,6 +41,10 @@
 .banner_image img {
   width: 50%;
 }
+.rotation_champion_image {
+  display: flex;
+  justify-items: flex-start;
+}
 body {
   background-color: #4171d6;
 }
@@ -49,7 +53,62 @@ body {
   justify-content: center;
   flex-wrap: wrap;
 }
-.findUser {
-  width: 900px;
+.find {
+  width: 1000px;
   margin: 0 auto;
+}
+.para1 {
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  font-size: 40px;
+}
+
+.main_background {
+  background-color: white;
+  width: 1500px;
+  margin: 0 auto;
+  padding: 30px;
+  border-radius: 10px;
+}
+.summoner_001 {
+  display: flex;
+  align-items: center;
+}
+.summonerName {
+  padding-left: 10px;
+  font-weight: bold;
+  font-size: 30px;
+}
+.summonerImage img {
+  width: 100%;
+}
+.summonerLevel {
+  width: 300px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 30px;
+}
+.summonerRank {
+  display: flex;
+  align-items: center;
+}
+.rank_para {
+  font-weight: bold;
+  font-size: 20px;
+}
+.tier_para {
+  color: rgb(31, 142, 205);
+  font-weight: bold;
+  font-size: 25px;
+}
+.Lp {
+  font-weight: bold;
+}
+.main_background {
+  display: flex;
+}
+.right {
+  margin-left: 200px;
+  margin-top: 400px;
 }

@@ -1,11 +1,11 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import './App.css';
-import api_key from './common/api_key';
 import {changeNameByIds}  from './util/changeNameByIds';
 import { Main } from './component/main';
-
-
+import { getFreeChampions } from './apis/getRotationChampions';
+import { RotationChampionList } from './component/rotationChampionList';
+import { SummonerInfo } from './page/summonerInfo';
+import { Route } from 'react-router-dom';
 const App = () => {
   const [getRotationChamps,setRotationChamps] = useState([]);
   
@@ -20,35 +20,25 @@ const App = () => {
     })
   
   },[])
+
+
   return (
-
     <div className="App">
-      <Main/>
+       <Route exact path="/find"> 
+        <SummonerInfo/>
+      </Route>
+      <Route exact path="/"> 
+        <Main/>
+        <RotationChampionList getRotationChamps= {getRotationChamps}/>
+      </Route>
       
-     
-    {getRotationChamps.map((item)=>{
-      return (
-        <div key={item.id}>
-            <div className="rotation_champion_image">
-              <div className="flex-box">
-                <img src={'https://opgg-static.akamaized.net/images/lol/champion/'+item.champions+'.png?image=q_auto:best&v=1635906101'}/> 
-              </div>
-            </div>
-
-          </div>
-      )
-    })}
+      
     </div>
 
   );
 }
 
-const getFreeChampions =  () => {
-  return new Promise((resolve , reject)=>{
-    resolve(axios.get(`https://kr.api.riotgames.com/lol/platform/v3/champion-rotations?api_key=${api_key}`))
-  })
- 
-}
+
 
 
 
