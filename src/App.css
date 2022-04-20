@@ -109,6 +109,13 @@ body {
   display: flex;
 }
 .right {
-  margin-left: 200px;
   margin-top: 400px;
+  margin-left: 10px;
+}
+.champParticipantsImgs img {
+  width: 10%;
+}
+.myPickChamp img {
+  width: 50%;
+  border-radius: 100px;
 }

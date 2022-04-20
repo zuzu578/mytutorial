@@ -3,6 +3,7 @@ import { getSummonerInfo } from '../apis/getSummonerInfo';
 import { getSummonerRank } from '../apis/getSummonerRank';
 import { getMatchListByPuuid } from '../apis/getMatchListByPuuid';
 import { getMatchDetailByMatchId } from '../apis/getMatchDetailByMatchId';
+import { InputGroup,FormControl,Nav,NavDropdown,Button,Table,Modal} from 'react-bootstrap';
 const url = new URL(window.location.href);
 const urlParams = url.searchParams;
 const summonerName = urlParams.getAll('name');
@@ -45,9 +46,8 @@ const SummonerInfo = () => {
         })
         
     },[])
-    for(let i = 0 ; i < getMatchDetailData.length ; i++){
-        console.log(getMatchDetailData[i])
-    }
+    
+    console.log(getMatchDetailData);
         return (
             <div>
               <div className="main_background">
@@ -101,13 +101,38 @@ const SummonerInfo = () => {
                 </div>
 
                 <div className="right">
-                 {getMatchDetailData.map((item)=>{
-                     return(
-                         <div>
-                             {item.gameCreation}
-                         </div>
-                     )
-                 })}
+                <Table striped bordered hover>
+          <h1 className="matchTitle">매치정보</h1>
+        <tbody>
+          {getMatchDetailData.map(function (listValue,index) {
+            return (
+              <tr key={index}>
+                <td>{listValue.gameMode}</td>
+                <td>{listValue.participants.map((item)=>{
+                    return(
+                        <div className="myPickChamp">
+                        <td>{item.summonerName === summonerInfo.name ?  <img src={`https://opgg-static.akamaized.net/images/lol/champion/${item.championName}.png?image=q_auto,f_webp,w_264&v=1650333355280`}/>: ''}</td>
+                        </div>
+                    )
+                })}</td>
+                <td>{listValue.participants.map((item)=>{
+                    return(
+                        <div>
+                        <div> 
+                            <div className="champParticipantsImgs"> 
+                            <img src={`https://opgg-static.akamaized.net/images/lol/champion/${item.championName}.png?image=q_auto,f_webp,w_264&v=1650333355280`}/>{item.summonerName} 
+                            </div>
+                        </div>
+                        </div>
+                    )
+                })}</td>
+              </tr>
+            );
+          })}
+          
+                 
+        </tbody>
+        </Table>
                        
         
                 </div>
