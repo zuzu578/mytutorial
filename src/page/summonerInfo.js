@@ -10,8 +10,9 @@ const summonerName = urlParams.getAll('name');
 const SummonerInfo = () => {
     const [summonerInfo , setSummonerInfo] = useState({});
     const [summonerRankInfo , setSummonerRankInfo] = useState([]);
-    const [getMatchDetail, setMatchDetail] = useState([]);
-   
+    const [getMatchDetailData, setMatchDetail] = useState([]);
+    const [puuid,setpuuid] = useState('');
+    const tempp = [];
     /**
      * 
      getMatchListByPuuid(res.puuid)
@@ -20,36 +21,33 @@ const SummonerInfo = () => {
         getSummonerInfo(summonerName[0])
         .then((res)=>{
             setSummonerInfo(res.data);
-            
             return res.data;
         })
         .then((res)=>{
+            setpuuid(res.puuid);
             getMatchListByPuuid(res.puuid)
-            .then((res)=>{
+            .then(async(res)=>{
                 //matchList get by puuid
-                const getMatchDetail = async()=> {
                     for (const param of res.data) {
-                        const res = await getMatchDetailByMatchId(param);
-                        console.log(res.data.info);
-                        setMatchDetail(res.data);
-                      }
-                }
-                getMatchDetail();
-                
-                
+                        const item = await getMatchDetailByMatchId(param);
+                        tempp.push(item.data.info)
+                    } 
+               return tempp
+              
+            })
+            .then((res)=>{
+                setMatchDetail(res);
             })
             return getSummonerRank(res.id);
-
         })
         .then((res)=>{
             setSummonerRankInfo(res.data);
         })
         
-        // getMatchListByPuuid(getPuuid)
-        // .then((res)=>{
-        //     console.log('test!!==>',res.data);
-        // })
     },[])
+    for(let i = 0 ; i < getMatchDetailData.length ; i++){
+        console.log(getMatchDetailData[i])
+    }
         return (
             <div>
               <div className="main_background">
@@ -103,14 +101,15 @@ const SummonerInfo = () => {
                 </div>
 
                 <div className="right">
-                        {/* {getMatchDetail.map((item)=>{
-                            return(
-                                <div>
-                                   
-                                </div>
-                            )
-                        })} */}
-            
+                 {getMatchDetailData.map((item)=>{
+                     return(
+                         <div>
+                             {item.gameCreation}
+                         </div>
+                     )
+                 })}
+                       
+        
                 </div>
               
                </div>
