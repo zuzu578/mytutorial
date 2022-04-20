@@ -59,6 +59,7 @@ const SummonerInfo = () => {
                     
                     <div className="summonerImage">
                         <img src={`https://opgg-static.akamaized.net/images/profile_icons/profileIcon${summonerInfo.profileIconId}.jpg?image=q_auto&image=q_auto,f_webp,w_auto&v=1650333355280`}/>
+                        
                     </div>
                     
                     <div className="summonerName">
@@ -107,12 +108,64 @@ const SummonerInfo = () => {
           {getMatchDetailData.map(function (listValue,index) {
             return (
               <tr key={index}>
-                <td>{listValue.gameMode}</td>
+                <td>{listValue.gameMode}
+                {listValue.participants.map((item)=>{
+                    return(
+                        <div>
+                            {item.summonerName === summonerInfo.name ? item.win : ''}
+                        </div>
+                    )
+                })}
+                </td>
+                
                 <td>{listValue.participants.map((item)=>{
                     return(
-                        <div className="myPickChamp">
-                        <td>{item.summonerName === summonerInfo.name ?  <img src={`https://opgg-static.akamaized.net/images/lol/champion/${item.championName}.png?image=q_auto,f_webp,w_264&v=1650333355280`}/>: ''}</td>
+                        <div>
+                        <td>{item.summonerName === summonerInfo.name ?
+                            <div className="myPickChamp">
+                              <img src={`https://opgg-static.akamaized.net/images/lol/champion/${item.championName}.png?image=q_auto,f_webp,w_264&v=1650333355280`} />
+
+                              <img src={`https://z.fow.kr/spell/${item.summoner1Id}.png`}/>
+                              <img src={`https://z.fow.kr/spell/${item.summoner2Id}.png`}/>
+                              {item.perks.styles.map((item)=>{
+                                  return(
+                                      <div>
+
+                                      </div>
+                                  )
+                              })}
+                              <p>레벨{item.champLevel}</p>
+                              <p>{item.totalMinionsKilled+item.neutralMinionsKilled} </p>
+                                 <p className="kdaPara">{item.kills}/{item.deaths}/{item.assists} <p className="winstatus">{item.win === true ? '승리': '패배'}</p></p>
+                            
+                            </div>: ''}
+                         
+                         </td>
+
+                         <p className="myChampName">
+                        {
+                         item.summonerName === summonerInfo.name ? 
+                         
+                         <div>
+                             {item.championName}({item.individualPosition})<br/>
+                             <div className="items">
+                                <img src={'https://opgg-static.akamaized.net/images/lol/item/'+item.item0+'.png?image=q_auto:best&v=1635906101'}/> 
+                                <img src={'https://opgg-static.akamaized.net/images/lol/item/'+item.item1+'.png?image=q_auto:best&v=1635906101'}/> 
+                                <img src={'https://opgg-static.akamaized.net/images/lol/item/'+item.item2+'.png?image=q_auto:best&v=1635906101'}/>
+                                <img src={'https://opgg-static.akamaized.net/images/lol/item/'+item.item3+'.png?image=q_auto:best&v=1635906101'}/>  <br/>
+                                <img src={'https://opgg-static.akamaized.net/images/lol/item/'+item.item4+'.png?image=q_auto:best&v=1635906101'}/> 
+                                <img src={'https://opgg-static.akamaized.net/images/lol/item/'+item.item5+'.png?image=q_auto:best&v=1635906101'}/> 
+                                <img src={'https://opgg-static.akamaized.net/images/lol/item/'+item.item6+'.png?image=q_auto:best&v=1635906101'}/> 
+                             </div>
                         </div>
+                        :''
+                         
+                         }
+                        
+                         </p>
+                        
+                        </div>
+                        
                     )
                 })}</td>
                 <td>{listValue.participants.map((item)=>{
@@ -120,7 +173,8 @@ const SummonerInfo = () => {
                         <div>
                         <div> 
                             <div className="champParticipantsImgs"> 
-                            <img src={`https://opgg-static.akamaized.net/images/lol/champion/${item.championName}.png?image=q_auto,f_webp,w_264&v=1650333355280`}/>{item.summonerName} 
+                                <img src={`https://opgg-static.akamaized.net/images/lol/champion/${item.championName}.png?image=q_auto,f_webp,w_264&v=1650333355280`}/>
+                               <a href={`/find?name=${item.summonerName}`}> {item.summonerName}</a>
                             </div>
                         </div>
                         </div>

@@ -82,6 +82,7 @@ body {
 }
 .summonerImage img {
   width: 100%;
+  border-radius: 300px;
 }
 .summonerLevel {
   width: 300px;
@@ -118,4 +119,24 @@ body {
 .myPickChamp img {
   width: 50%;
   border-radius: 100px;
+}
+.myChampName {
+  font-weight: bold;
+}
+
+.kdaPara {
+  font-weight: bold;
+  font-size: 15px;
+}
+.winstatus {
+  font-weight: bold;
+  font-size: 30px;
+}
+.items img {
+  width: 20%;
+}
+a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
 }
