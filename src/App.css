@@ -110,14 +110,14 @@ body {
   display: flex;
 }
 .right {
-  margin-top: 400px;
-  margin-left: 10px;
+  width: 800px;
+  margin-left: 60px;
 }
 .champParticipantsImgs img {
-  width: 10%;
+  width: 20%;
 }
 .myPickChamp img {
-  width: 50%;
+  width: 70%;
   border-radius: 100px;
 }
 .myChampName {
@@ -133,10 +133,45 @@ body {
   font-size: 30px;
 }
 .items img {
-  width: 20%;
+  width: 25%;
 }
 a {
   text-decoration: none;
   color: black;
   font-weight: bold;
+}
+.ward img {
+  width: 8%;
+}
+.w-btn-indigo {
+  background-color: aliceblue;
+  color: #1e6b7b;
+}
+.w-btn {
+  width: 800px;
+
+  position: relative;
+  border: none;
+  display: inline-block;
+  padding: 15px 30px;
+  border-radius: 15px;
+  font-family: "paybooc-Light", sans-serif;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  text-decoration: none;
+  font-weight: 600;
+  transition: 0.25s;
+}
+.bannedChampion img {
+  width: 30%;
+}
+.ingameBtn {
+  margin-left: 100px;
+}
+.notPlaying {
+  font-weight: bold;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  line-height: 40px;
+  border: 1px solid gray;
+  text-align: center;
 }

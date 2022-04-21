@@ -4,10 +4,15 @@
  * @desc : 챔피언 id 를 챔피언 영문이름으로 변경하는 Utils 
  * @returns 
  */
-const changeNameByIds = (params) => {
+let params = [];
+const changeNameByIds = (ids) => {
     const championNamesArr = [] ;
+    //console.log('test!!!! ㅅㅂ ------>',ids)
+    if(!Array.isArray(ids)){
+        params.push(ids)
+    }
     const champions = {};
-    params.map((item)=>{
+    ids.map((item)=>{
         if(item === 22) { championNamesArr.push({id:22,champions:"Ashe"})}
         if(item === 28) { championNamesArr.push({id:28,champions:"Evelynn"})}
         if(item === 34) { championNamesArr.push({id:34,champions:"Anivia"})}

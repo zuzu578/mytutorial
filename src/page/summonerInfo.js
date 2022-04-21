@@ -5,6 +5,8 @@ import { getMatchListByPuuid } from '../apis/getMatchListByPuuid';
 import { getMatchDetailByMatchId } from '../apis/getMatchDetailByMatchId';
 import { Table} from 'react-bootstrap';
 import { Loading } from '../component/loading';
+import { changeNameByIds } from '../util/changeNameByIds';
+import { Spectator } from '../component/spectator';
 const url = new URL(window.location.href);
 const urlParams = url.searchParams;
 const summonerName = urlParams.getAll('name');
@@ -12,17 +14,19 @@ const SummonerInfo = () => {
 
     // 매치 더가져오기 초기변수 
     const [count ,setCount] =useState(10);
-    // 로딩 여부  
+    // 초기데이터 로딩 여부  
     const [loading , setLoading] = useState(true);
+    // 더가져오기 버튼 로딩 여부 
+    const [moreBtnLoading, setMoreBtnLoading] = useState(false);
     const [summonerInfo , setSummonerInfo] = useState({});
     const [summonerRankInfo , setSummonerRankInfo] = useState([]);
     const [getMatchDetailData, setMatchDetail] = useState([]);
     const tempp = [];
     const [puuid , setpuuid] = useState('');
 
-
     // 매치 더가져오기 
     const getMoreMatchButtons = () =>{
+        setMoreBtnLoading(true);
         setCount(count+5);
         getMatchListByPuuid(puuid,count)
         .then(async(res)=>{
@@ -31,12 +35,10 @@ const SummonerInfo = () => {
                 tempp.push(item.data.info);
             }
             setMatchDetail(tempp);
+            setMoreBtnLoading(false);
 
         });
-        
-        
     }
-
     useEffect(()=>{
         getSummonerInfo(summonerName[0])
         .then((res)=>{
@@ -44,6 +46,7 @@ const SummonerInfo = () => {
             return res.data;
         })
         .then((res)=>{
+            
             setpuuid(res.puuid);
             getMatchListByPuuid(res.puuid)
             .then(async(res)=>{
@@ -56,6 +59,7 @@ const SummonerInfo = () => {
               
             })
             .then((res)=>{
+                
                 setMatchDetail(res);
                 setLoading(false);
                 
@@ -65,33 +69,29 @@ const SummonerInfo = () => {
         .then((res)=>{
             setSummonerRankInfo(res.data);
         })
-        //setMoreBtn(true);
-        
     },[])
-    
-    console.log(getMatchDetailData);
-    
+   
         return (
             <div>
               <div className="main_background">
                 <div className="left">
                 {getSummonerInfo.length !==0 ?
                <>
-                <p> 갱신일자 : {summonerInfo.revisionDate}</p>
                   <div className="summoner_001">
-                    
                     <div className="summonerImage">
                         <img src={`https://opgg-static.akamaized.net/images/profile_icons/profileIcon${summonerInfo.profileIconId}.jpg?image=q_auto&image=q_auto,f_webp,w_auto&v=1650333355280`}/>
-                        
                     </div>
-                    
                     <div className="summonerName">
                         <p> {summonerInfo.name}</p>
                     </div>
+                
+                    
                    </div>
+                   
                     <div className="summonerLevel">
                         <p>{summonerInfo.summonerLevel}.LV</p>
                     </div>
+                    <Spectator props = {summonerInfo.id}/>
                     
                         {summonerRankInfo.length !==0 ?summonerRankInfo.map((item)=>{
                             return(
@@ -124,9 +124,8 @@ const SummonerInfo = () => {
 
                 </div>
 
-                <div className="right">
+    <div className="right">
         {loading === true ? <Loading/> : <Table striped bordered hover>
-          <h1 className="matchTitle">매치정보</h1>
         <tbody>
           {getMatchDetailData.map(function (listValue,index) {
             return (
@@ -158,8 +157,12 @@ const SummonerInfo = () => {
                                   )
                               })}
                               <p>레벨{item.champLevel}</p>
-                              <p>cs:{item.totalMinionsKilled+item.neutralMinionsKilled} </p>
-                                 <p className="kdaPara">{item.kills}/{item.deaths}/{item.assists} <p className="winstatus">{item.win === true ? '승리': '패배'}</p></p>
+                              <p>cs:{item.totalMinionsKilled+item.neutralMinionsKilled} </p> 
+                                <div className="ward">
+                                    <img src={"https://s-lol-web.op.gg/static/images/icon/common/icon-ward-blue.png?v=1650474678151"}/>
+                                    제어와드 {item.wardsPlaced}
+                                </div>
+                                 <p className="kdaPara">{item.kills}/{item.deaths}/{item.assists} <p className="winstatus">{item.win === true ? <p style={{color:"blue"}}>승리</p>: <p style={{color:"red"}}>패배</p>}</p></p>
                             
                             </div>: ''}
                          
@@ -170,7 +173,7 @@ const SummonerInfo = () => {
                          item.summonerName === summonerInfo.name ? 
                          
                          <div>
-                             {item.championName} 포지션:({item.individualPosition})<br/>
+                             {item.championName} 포지션:({item.lane})<br/>
                              <div className="items">
                                 <img src={'https://opgg-static.akamaized.net/images/lol/item/'+item.item0+'.png?image=q_auto:best&v=1635906101'}/> 
                                 <img src={'https://opgg-static.akamaized.net/images/lol/item/'+item.item1+'.png?image=q_auto:best&v=1635906101'}/> 
@@ -201,8 +204,35 @@ const SummonerInfo = () => {
                             </div>
                         </div>
                         </div>
+                        
                     )
-                })}</td>
+                })}
+                </td>
+                <td>
+                 <p>밴한챔피언</p>
+                {listValue.teams.map((item)=>{
+                    return(
+                        <div>
+                            {item.bans.map((item)=>{
+                                return(
+                                    <div>
+                                       
+                                        {changeNameByIds([22]).map((item)=>{
+                                            return(
+                                                <div className="bannedChampion">
+                                                    <img src={`https://opgg-static.akamaized.net/images/lol/champion/${item.champions}.png?image=q_auto,f_webp,w_264&v=1650333355280`}/>
+                                                </div>
+                                            )
+                                        })} 
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    )
+                })}
+
+                </td>
+                
               </tr>
             );
           })}
@@ -211,9 +241,10 @@ const SummonerInfo = () => {
         </tbody>
         </Table> }
             
-        {loading === true ?<></>
+        {loading === true ?<><Loading/></>
         : <div className="moreLoad">
-             <button onClick={(e)=>{getMoreMatchButtons(puuid.puuid, e)}}> 매치 더 가져오기 </button>
+            {moreBtnLoading === true ? <Loading/> : <button className="w-btn w-btn-indigo" onClick={(e)=>{getMoreMatchButtons(puuid.puuid, e)}}> 매치 더 가져오기 </button>}
+             
         </div> }
          
                 </div>
