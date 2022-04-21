@@ -3,21 +3,38 @@ import { getSummonerInfo } from '../apis/getSummonerInfo';
 import { getSummonerRank } from '../apis/getSummonerRank';
 import { getMatchListByPuuid } from '../apis/getMatchListByPuuid';
 import { getMatchDetailByMatchId } from '../apis/getMatchDetailByMatchId';
-import { InputGroup,FormControl,Nav,NavDropdown,Button,Table,Modal} from 'react-bootstrap';
+import { Table} from 'react-bootstrap';
+import { MoreMatchLoadButton } from '../component/moreMatchLoadButton';
 const url = new URL(window.location.href);
 const urlParams = url.searchParams;
 const summonerName = urlParams.getAll('name');
-
 const SummonerInfo = () => {
+
+    // 매치 더가져오기 초기변수 
+    const [count ,setCount] =useState(5);
     const [summonerInfo , setSummonerInfo] = useState({});
     const [summonerRankInfo , setSummonerRankInfo] = useState([]);
     const [getMatchDetailData, setMatchDetail] = useState([]);
-    const [puuid,setpuuid] = useState('');
     const tempp = [];
-    /**
-     * 
-     getMatchListByPuuid(res.puuid)
-     */
+    const [puuid , setpuuid] = useState('');
+
+
+    // 매치 더가져오기 
+    const getMoreMatchButtons = () =>{
+        setCount(count+5);
+        getMatchListByPuuid(puuid,count)
+        .then(async(res)=>{
+            for(const param of res.data){
+                const item = await getMatchDetailByMatchId(param)
+                tempp.push(item.data.info);
+            }
+            setMatchDetail(tempp);
+
+        });
+        
+        
+    }
+
     useEffect(()=>{
         getSummonerInfo(summonerName[0])
         .then((res)=>{
@@ -135,7 +152,7 @@ const SummonerInfo = () => {
                                   )
                               })}
                               <p>레벨{item.champLevel}</p>
-                              <p>{item.totalMinionsKilled+item.neutralMinionsKilled} </p>
+                              <p>cs:{item.totalMinionsKilled+item.neutralMinionsKilled} </p>
                                  <p className="kdaPara">{item.kills}/{item.deaths}/{item.assists} <p className="winstatus">{item.win === true ? '승리': '패배'}</p></p>
                             
                             </div>: ''}
@@ -147,7 +164,7 @@ const SummonerInfo = () => {
                          item.summonerName === summonerInfo.name ? 
                          
                          <div>
-                             {item.championName}({item.individualPosition})<br/>
+                             {item.championName} 포지션:({item.individualPosition})<br/>
                              <div className="items">
                                 <img src={'https://opgg-static.akamaized.net/images/lol/item/'+item.item0+'.png?image=q_auto:best&v=1635906101'}/> 
                                 <img src={'https://opgg-static.akamaized.net/images/lol/item/'+item.item1+'.png?image=q_auto:best&v=1635906101'}/> 
@@ -186,9 +203,10 @@ const SummonerInfo = () => {
           
                  
         </tbody>
-        </Table>
-                       
-        
+        </Table>     
+        <div className="moreLoad">
+            <button onClick={(e)=>{getMoreMatchButtons(puuid.puuid, e)}}> 매치 더 가져오기 </button>
+        </div>  
                 </div>
               
                </div>
