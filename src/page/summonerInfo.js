@@ -4,14 +4,16 @@ import { getSummonerRank } from '../apis/getSummonerRank';
 import { getMatchListByPuuid } from '../apis/getMatchListByPuuid';
 import { getMatchDetailByMatchId } from '../apis/getMatchDetailByMatchId';
 import { Table} from 'react-bootstrap';
-import { MoreMatchLoadButton } from '../component/moreMatchLoadButton';
+import { Loading } from '../component/loading';
 const url = new URL(window.location.href);
 const urlParams = url.searchParams;
 const summonerName = urlParams.getAll('name');
 const SummonerInfo = () => {
 
     // 매치 더가져오기 초기변수 
-    const [count ,setCount] =useState(5);
+    const [count ,setCount] =useState(10);
+    // 로딩 여부  
+    const [loading , setLoading] = useState(true);
     const [summonerInfo , setSummonerInfo] = useState({});
     const [summonerRankInfo , setSummonerRankInfo] = useState([]);
     const [getMatchDetailData, setMatchDetail] = useState([]);
@@ -55,16 +57,20 @@ const SummonerInfo = () => {
             })
             .then((res)=>{
                 setMatchDetail(res);
+                setLoading(false);
+                
             })
             return getSummonerRank(res.id);
         })
         .then((res)=>{
             setSummonerRankInfo(res.data);
         })
+        //setMoreBtn(true);
         
     },[])
     
     console.log(getMatchDetailData);
+    
         return (
             <div>
               <div className="main_background">
@@ -119,7 +125,7 @@ const SummonerInfo = () => {
                 </div>
 
                 <div className="right">
-                <Table striped bordered hover>
+        {loading === true ? <Loading/> : <Table striped bordered hover>
           <h1 className="matchTitle">매치정보</h1>
         <tbody>
           {getMatchDetailData.map(function (listValue,index) {
@@ -203,10 +209,13 @@ const SummonerInfo = () => {
           
                  
         </tbody>
-        </Table>     
-        <div className="moreLoad">
-            <button onClick={(e)=>{getMoreMatchButtons(puuid.puuid, e)}}> 매치 더 가져오기 </button>
-        </div>  
+        </Table> }
+            
+        {loading === true ?<></>
+        : <div className="moreLoad">
+             <button onClick={(e)=>{getMoreMatchButtons(puuid.puuid, e)}}> 매치 더 가져오기 </button>
+        </div> }
+         
                 </div>
               
                </div>

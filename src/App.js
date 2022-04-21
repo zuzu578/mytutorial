@@ -6,6 +6,7 @@ import { getFreeChampions } from './apis/getRotationChampions';
 import { RotationChampionList } from './component/rotationChampionList';
 import { SummonerInfo } from './page/summonerInfo';
 import { Route } from 'react-router-dom';
+
 const App = () => {
   const [getRotationChamps,setRotationChamps] = useState([]);
   
