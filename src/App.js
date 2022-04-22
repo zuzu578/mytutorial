@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import {changeNameByIds}  from './util/changeNameByIds';
+import {change}  from './util/changeNameByIds';
 import { Main } from './component/main';
 import { getFreeChampions } from './apis/getRotationChampions';
 import { RotationChampionList } from './component/rotationChampionList';
+import { championArrs } from './util/changeNameByIds';
 import { SummonerInfo } from './page/summonerInfo';
 import { Route } from 'react-router-dom';
 
@@ -12,8 +13,8 @@ const App = () => {
   
   useEffect(()=>{
     getFreeChampions()
-    .then((res)=>{
-      const rotationChampionList = changeNameByIds(res.data.freeChampionIds);
+    .then(async(res)=>{
+      const rotationChampionList = await change(res.data.freeChampionIds);
       setRotationChamps(rotationChampionList);
     })
     .catch((error)=>{

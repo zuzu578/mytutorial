@@ -175,3 +175,7 @@ a {
   border: 1px solid gray;
   text-align: center;
 }
+
+.mastery img {
+  width: 20%;
+}

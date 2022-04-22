@@ -5,11 +5,15 @@ import { getMatchListByPuuid } from '../apis/getMatchListByPuuid';
 import { getMatchDetailByMatchId } from '../apis/getMatchDetailByMatchId';
 import { Table} from 'react-bootstrap';
 import { Loading } from '../component/loading';
-import { changeNameByIds } from '../util/changeNameByIds';
+import { change } from '../util/changeNameByIds';
 import { Spectator } from '../component/spectator';
+import { getChampionMastery } from '../apis/getChampionMastery';
+
+
 const url = new URL(window.location.href);
 const urlParams = url.searchParams;
 const summonerName = urlParams.getAll('name');
+let mastery = [];
 const SummonerInfo = () => {
 
     // 매치 더가져오기 초기변수 
@@ -23,6 +27,9 @@ const SummonerInfo = () => {
     const [getMatchDetailData, setMatchDetail] = useState([]);
     const tempp = [];
     const [puuid , setpuuid] = useState('');
+    const [id, setId] = useState('');
+    const [getChampMasteryData , setChampMastery] = useState([{}])
+
 
     // 매치 더가져오기 
     const getMoreMatchButtons = () =>{
@@ -46,7 +53,11 @@ const SummonerInfo = () => {
             return res.data;
         })
         .then((res)=>{
-            
+            setId(res.id);
+            getChampionMastery(res.id)
+            .then((res)=>{
+                setChampMastery(res.data);
+            })
             setpuuid(res.puuid);
             getMatchListByPuuid(res.puuid)
             .then(async(res)=>{
@@ -69,8 +80,35 @@ const SummonerInfo = () => {
         .then((res)=>{
             setSummonerRankInfo(res.data);
         })
+
     },[])
-   
+    // 챔피언 Id 로 이름변경 
+    let getMasteryArr = [];
+    for(const param of getChampMasteryData){
+        getMasteryArr.push(param.championId);
+    }
+    
+    const masteryList = async() => {
+        const mastery = await change(getMasteryArr , 'mastery');
+        return mastery;
+    }
+    
+    const setMastery = async() =>{
+        mastery = await masteryList();
+    }
+    setMastery()
+
+    console.log('getMatchDetailData===>',getMatchDetailData);
+    
+
+
+    
+    // masteryList().then((res)=>{
+    //     console.log('testesafewnfoewaf!',res);
+    //     // state 에 저장하기 TODO
+    //     //setMastery(res);
+    // });
+    //console.log('getChampMasteryData=>',getChampMasteryData);
         return (
             <div>
               <div className="main_background">
@@ -105,10 +143,13 @@ const SummonerInfo = () => {
                                     <p class="tier_para">{item.tier}</p>
                                     <p class="Lp">{item.leaguePoints}LP / {item.wins}승 {item.losses}패</p>
                                   </div>
+                                  
                                 </div>
+                               
                             </div>
                             )
                         }):
+                   
                         <div className="summonerRank">
                             <div className="rank_image">
                                 <img src='https://opgg-static.akamaized.net/images/medals/default.png?image=q_auto&image=q_auto,f_webp,w_auto&v=1650333355280'/>
@@ -121,8 +162,27 @@ const SummonerInfo = () => {
                     
                   
                     </>: <></>}
+                    <div>
+                        <h3> 챔피언숙련도 </h3>
+                       {mastery.map((item)=>{
+                           return(
+                               <div>
+                                   {item.map((item)=>{
+                                       return(
+                                           <div className="mastery">
+                                               <img src={`https://opgg-static.akamaized.net/images/lol/champion/${item}.png?image=q_auto,f_webp,w_264&v=1650333355280`}/>
+                                            </div>
+                                       )
+                                   })}
+                                </div>
+                           )
+                       })}
+                      
+                        
+                    </div>
 
                 </div>
+                
 
     <div className="right">
         {loading === true ? <Loading/> : <Table striped bordered hover>
@@ -217,13 +277,13 @@ const SummonerInfo = () => {
                                 return(
                                     <div>
                                        
-                                        {changeNameByIds([22]).map((item)=>{
+                                        {/* {changeNameByIds([22]).map((item)=>{
                                             return(
                                                 <div className="bannedChampion">
                                                     <img src={`https://opgg-static.akamaized.net/images/lol/champion/${item.champions}.png?image=q_auto,f_webp,w_264&v=1650333355280`}/>
                                                 </div>
                                             )
-                                        })} 
+                                        })}  */}
                                     </div>
                                 )
                             })}
