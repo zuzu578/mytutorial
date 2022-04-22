@@ -1,3 +1,3 @@
-const api_key = 'RGAPI-7e841e81-ae2d-49a9-a2ba-d6094b07f6bd';
+const api_key = 'RGAPI-22ee4a02-7a03-4b53-8525-6ed50c64cd7b';
 
 export default api_key;

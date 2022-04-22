@@ -4,7 +4,6 @@ const RotationChampionList = (params) => {
         <div>
             <p className="para1"> 이번주의 로테이션 챔피언 </p>
                 <div className="rotation_champion_image">
-                    {}
                     {params.getRotationChamps.map((item)=>{
                     return (
                         <div>

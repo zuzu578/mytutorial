@@ -97,18 +97,6 @@ const SummonerInfo = () => {
         mastery = await masteryList();
     }
     setMastery()
-
-    console.log('getMatchDetailData===>',getMatchDetailData);
-    
-
-
-    
-    // masteryList().then((res)=>{
-    //     console.log('testesafewnfoewaf!',res);
-    //     // state 에 저장하기 TODO
-    //     //setMastery(res);
-    // });
-    //console.log('getChampMasteryData=>',getChampMasteryData);
         return (
             <div>
               <div className="main_background">
@@ -270,26 +258,19 @@ const SummonerInfo = () => {
                 </td>
                 <td>
                  <p>밴한챔피언</p>
-                {listValue.teams.map((item)=>{
+                {/* {bannedChampionsList.map((item)=>{
                     return(
                         <div>
-                            {item.bans.map((item)=>{
+                            {item.map((item)=>{
                                 return(
                                     <div>
-                                       
-                                        {/* {changeNameByIds([22]).map((item)=>{
-                                            return(
-                                                <div className="bannedChampion">
-                                                    <img src={`https://opgg-static.akamaized.net/images/lol/champion/${item.champions}.png?image=q_auto,f_webp,w_264&v=1650333355280`}/>
-                                                </div>
-                                            )
-                                        })}  */}
+                                        {item}
                                     </div>
                                 )
                             })}
                         </div>
                     )
-                })}
+                })} */}
 
                 </td>
                 
