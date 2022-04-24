@@ -14,6 +14,7 @@ const url = new URL(window.location.href);
 const urlParams = url.searchParams;
 const summonerName = urlParams.getAll('name');
 let mastery = [];
+let banned = [];
 const SummonerInfo = () => {
 
     // 매치 더가져오기 초기변수 
@@ -103,14 +104,18 @@ const SummonerInfo = () => {
         temp.push(item.bans);
       })
     })
-    let test = [];
+
     const bannedList = async() => {
         const list = await change(temp,'banned');
         return list;
     }
+    const setBannedList = async() =>{
+        banned = await bannedList();
+    }
+    setBannedList();
+    
 
-
-   
+  
 
     
         return (
@@ -274,7 +279,7 @@ const SummonerInfo = () => {
                 </td>
                 <td>
                  <p>밴한챔피언</p>
-                 {}
+                 
                 </td>
                 
               </tr>
