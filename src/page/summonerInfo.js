@@ -97,6 +97,22 @@ const SummonerInfo = () => {
         mastery = await masteryList();
     }
     setMastery()
+    let temp = []; 
+    getMatchDetailData.map((item)=>{
+      item.teams.map((item)=>{
+        temp.push(item.bans);
+      })
+    })
+    let test = [];
+    const bannedList = async() => {
+        const list = await change(temp,'banned');
+        return list;
+    }
+
+
+   
+
+    
         return (
             <div>
               <div className="main_background">
@@ -258,20 +274,7 @@ const SummonerInfo = () => {
                 </td>
                 <td>
                  <p>밴한챔피언</p>
-                {/* {bannedChampionsList.map((item)=>{
-                    return(
-                        <div>
-                            {item.map((item)=>{
-                                return(
-                                    <div>
-                                        {item}
-                                    </div>
-                                )
-                            })}
-                        </div>
-                    )
-                })} */}
-
+                 {}
                 </td>
                 
               </tr>

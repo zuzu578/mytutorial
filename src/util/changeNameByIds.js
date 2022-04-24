@@ -15,8 +15,11 @@
      let banned = [];
      if(type==='banned'){
          for(let [bannedIdx,bannedItem] of idx.entries()){
-             //console.log('bannedItem.championId====>',bannedItem.championId)
-            banned.push(await changeNameByIds(bannedItem.championId));
+             for(let [idx,item] of bannedItem.entries()){
+                banned.push(await changeNameByIds(item.championId));
+                 //console.log(item.championId);
+             }
+            //banned.push(await changeNameByIds(bannedItem.championId));
          }
          return banned;
      }
