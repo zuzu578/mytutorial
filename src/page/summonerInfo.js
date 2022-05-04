@@ -8,7 +8,8 @@ import { Loading } from '../component/loading';
 import { change } from '../util/changeNameByIds';
 import { Spectator } from '../component/spectator';
 import { getChampionMastery } from '../apis/getChampionMastery';
-import { getChangeNameByIds2 } from '../util/changeNameByIds';
+import { getAllChampionData } from '../util/changeNameByIds';
+import { filteringBannedChampion } from '../util/changeNameByIds';
 
 
 const url = new URL(window.location.href);
@@ -18,6 +19,7 @@ let mastery = [];
 let banned = [];
 const SummonerInfo = () => {
 
+    const [championData , setChapionData] = useState([]);
     // 매치 더가져오기 초기변수 
     const [count ,setCount] =useState(10);
     // 초기데이터 로딩 여부  
@@ -50,6 +52,7 @@ const SummonerInfo = () => {
         });
     }
     useEffect(()=>{
+        
         getSummonerInfo(summonerName[0])
         .then((res)=>{
             setSummonerInfo(res.data);
@@ -83,6 +86,11 @@ const SummonerInfo = () => {
         .then((res)=>{
             setSummonerRankInfo(res.data);
         })
+         // 모든 챔피언 list 를 key value 로 가져온다.
+        getAllChampionData()
+        .then((res)=>{
+            setChapionData(res);
+        })
 
     },[])
     // 챔피언 Id 로 이름변경 
@@ -100,17 +108,6 @@ const SummonerInfo = () => {
         mastery = await masteryList();
     }
     setMastery()
-    let temp = [];
-    getMatchDetailData.map((item)=>{
-        item.teams.map((item)=>{
-            item.bans.map((item)=>{
-                temp.push(item.championId);
-                //await getChangeNameByIds2(item.championId)
-            })
-        })
-    })
-
-    console.log('testestestestes=t==>',temp);
         return (
             <div>
               <div className="main_background">
@@ -278,8 +275,8 @@ const SummonerInfo = () => {
                            {item.bans.map((item)=>{
                                return(
                                    <div>
-                                       {item.championId}
-                                       {/* {getChangeNameByIds2(item.championId)} */}
+                                       {filteringBannedChampion(item.championId,championData)}
+                                       <img src={`https://opgg-static.akamaized.net/images/lol/champion/${filteringBannedChampion(item.championId,championData)}.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_264&v=1651555450322`}/>
                                     </div>
                                )
                            })}

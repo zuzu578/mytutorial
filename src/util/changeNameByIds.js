@@ -56,26 +56,33 @@
     let championList = res.data.data;
     return championList;
  }
- const getChangeNameByIds2 = async(ids)=>{
-        let idsList = [];
-        let list = [] ;
+ const getAllChampionData = async()=>{
+       
+        let list = [];
         let obj = {};
-        idsList.push(ids);
         const championList =  await changeNameByIds2();
-        //console.log('idssss===>',ids);
-        for(let[bannedIdx,bannedItem] of ids.bans.entries()){
-            for(let i in championList){
-                if (championList[i].key == bannedItem.championId) {
-                    obj = {
-                        [bannedItem.championId]:championList[i].id,
-                    }
-                    list.push(obj);
-               }
+      
+        for (let i in championList) {
+            obj = {
+                [championList[i].key]:championList[i].id
             }
+            list.push(obj);
         }
-        return list;  
+
+        return list; 
  }
- getChangeNameByIds2();
+ getAllChampionData();
+
+
+ const filteringBannedChampion = (bannedId,allChampionData) => {
+   const result =  allChampionData.map((item)=>{
+        //console.log('itemssss',item[bannedId]);
+        return item[bannedId];
+    })
+
+    return result;
+
+ }
   
  
- export{change,changeNameByIds,changeNameByIds2,getChangeNameByIds2}
+ export{change,changeNameByIds,changeNameByIds2,getAllChampionData,filteringBannedChampion}
