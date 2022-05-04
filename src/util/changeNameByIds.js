@@ -6,7 +6,7 @@
   */
 
  import axios from 'axios';
- let version = "10.16.1"
+ let version = "12.6.1"
  
  const change = async(idx,type) => {
      if(!type){
@@ -14,14 +14,12 @@
      }
      let banned = [];
      if(type==='banned'){
-         for(let [bannedIdx,bannedItem] of idx.entries()){
-             for(let [idx,item] of bannedItem.entries()){
-                banned.push(await changeNameByIds(item.championId));
-                 //console.log(item.championId);
-             }
-            //banned.push(await changeNameByIds(bannedItem.championId));
-         }
-         return banned;
+        //console.log('idx',idx);
+        for(let[bannedIdx,bannedItem] of idx.entries()){
+            //console.log('banned',bannedItem.championId)
+            banned.push(await changeNameByIds(bannedItem.championId));
+        }
+        return banned;
      }
      let temp = []
      let i = 0;
@@ -48,5 +46,36 @@
  }   
      return  chmpArr;
  }
+
+ /**
+  * test
+  */
+
+ const changeNameByIds2 = async() =>{
+    const res = await axios.get('http://ddragon.leagueoflegends.com/cdn/' + version + '/data/de_DE/champion.json')
+    let championList = res.data.data;
+    return championList;
+ }
+ const getChangeNameByIds2 = async(ids)=>{
+        let idsList = [];
+        let list = [] ;
+        let obj = {};
+        idsList.push(ids);
+        const championList =  await changeNameByIds2();
+        //console.log('idssss===>',ids);
+        for(let[bannedIdx,bannedItem] of ids.bans.entries()){
+            for(let i in championList){
+                if (championList[i].key == bannedItem.championId) {
+                    obj = {
+                        [bannedItem.championId]:championList[i].id,
+                    }
+                    list.push(obj);
+               }
+            }
+        }
+        return list;  
+ }
+ getChangeNameByIds2();
+  
  
- export{change,changeNameByIds}
+ export{change,changeNameByIds,changeNameByIds2,getChangeNameByIds2}

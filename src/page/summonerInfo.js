@@ -8,6 +8,7 @@ import { Loading } from '../component/loading';
 import { change } from '../util/changeNameByIds';
 import { Spectator } from '../component/spectator';
 import { getChampionMastery } from '../apis/getChampionMastery';
+import { getChangeNameByIds2 } from '../util/changeNameByIds';
 
 
 const url = new URL(window.location.href);
@@ -30,6 +31,7 @@ const SummonerInfo = () => {
     const [puuid , setpuuid] = useState('');
     const [id, setId] = useState('');
     const [getChampMasteryData , setChampMastery] = useState([{}])
+    const [banned,setBanned] = useState([]);
 
 
     // 매치 더가져오기 
@@ -98,24 +100,17 @@ const SummonerInfo = () => {
         mastery = await masteryList();
     }
     setMastery()
-    let temp = []; 
+    let temp = [];
     getMatchDetailData.map((item)=>{
-      item.teams.map((item)=>{
-        temp.push(item.bans);
-      })
+        item.teams.map((item)=>{
+            item.bans.map((item)=>{
+                temp.push(item.championId);
+                //await getChangeNameByIds2(item.championId)
+            })
+        })
     })
 
-    const bannedList = async() => {
-        const list = await change(temp,'banned');
-        return list;
-    }
-    const setBannedList = async() =>{
-        banned = await bannedList();
-    }
-    setBannedList();
-    // getMatchDetailData.teams.map((item)=>{
-    //     console.log(item);
-    // })
+    console.log('testestestestes=t==>',temp);
         return (
             <div>
               <div className="main_background">
@@ -276,19 +271,22 @@ const SummonerInfo = () => {
                 })}
                 </td>
                 <td>
-                 <p>밴한챔피언</p>
+                 <p>밴</p>
                  {listValue.teams.map((item)=>{
                      return(
                          <div>
-                             {item.bans.map((item)=>{
-                                 return(
-                                     <div>
-                                         {item.championId}
+                           {item.bans.map((item)=>{
+                               return(
+                                   <div>
+                                       {item.championId}
+                                       {/* {getChangeNameByIds2(item.championId)} */}
                                     </div>
-                                 )
-                             })}
+                               )
+                           })}
                          </div>
                      )
+                    
+                     
                  })}
                  
                 </td>
