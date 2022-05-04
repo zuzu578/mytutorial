@@ -113,11 +113,9 @@ const SummonerInfo = () => {
         banned = await bannedList();
     }
     setBannedList();
-    
-
-  
-
-    
+    // getMatchDetailData.teams.map((item)=>{
+    //     console.log(item);
+    // })
         return (
             <div>
               <div className="main_background">
@@ -279,6 +277,19 @@ const SummonerInfo = () => {
                 </td>
                 <td>
                  <p>밴한챔피언</p>
+                 {listValue.teams.map((item)=>{
+                     return(
+                         <div>
+                             {item.bans.map((item)=>{
+                                 return(
+                                     <div>
+                                         {item.championId}
+                                    </div>
+                                 )
+                             })}
+                         </div>
+                     )
+                 })}
                  
                 </td>
                 
