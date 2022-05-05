@@ -276,9 +276,12 @@ const SummonerInfo = () => {
                                const img = FilteringBannedChampion(item.championId,championData)
                                return(
                                    <div>
-                                       <div className="bannedImg">
-                                       <img src={`https://ddragon.leagueoflegends.com/cdn/10.6.1/img/champion/${img}.png`}/>
-                                       </div>
+                                       {img === '' ? '' : 
+                                        <div className="bannedImg">
+                                        <img src={`https://ddragon.leagueoflegends.com/cdn/12.6.1/img/champion/${img}.png`}/>
+                                        </div>
+                                       }
+                                      
                                      
                                     </div>
                                )
