@@ -9,7 +9,7 @@ import { change } from '../util/changeNameByIds';
 import { Spectator } from '../component/spectator';
 import { getChampionMastery } from '../apis/getChampionMastery';
 import { getAllChampionData } from '../util/changeNameByIds';
-import { filteringBannedChampion } from '../util/changeNameByIds';
+import { FilteringBannedChampion } from '../util/changeNameByIds';
 
 
 const url = new URL(window.location.href);
@@ -273,10 +273,13 @@ const SummonerInfo = () => {
                      return(
                          <div>
                            {item.bans.map((item)=>{
+                               const img = FilteringBannedChampion(item.championId,championData)
                                return(
                                    <div>
-                                       {filteringBannedChampion(item.championId,championData)}
-                                       <img src={`https://opgg-static.akamaized.net/images/lol/champion/${filteringBannedChampion(item.championId,championData)}.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_264&v=1651555450322`}/>
+                                       <div className="bannedImg">
+                                       <img src={`https://ddragon.leagueoflegends.com/cdn/10.6.1/img/champion/${img}.png`}/>
+                                       </div>
+                                     
                                     </div>
                                )
                            })}

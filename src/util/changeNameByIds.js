@@ -61,7 +61,7 @@
         let list = [];
         let obj = {};
         const championList =  await changeNameByIds2();
-      
+        console.log('championList == == == >' , championList);
         for (let i in championList) {
             obj = {
                 [championList[i].key]:championList[i].id
@@ -74,15 +74,20 @@
  getAllChampionData();
 
 
- const filteringBannedChampion = (bannedId,allChampionData) => {
-   const result =  allChampionData.map((item)=>{
-        //console.log('itemssss',item[bannedId]);
-        return item[bannedId];
-    })
+ const FilteringBannedChampion = (bannedId,allChampionData) => {
+     //console.log('allchampdata===>',allChampionData);
+     let champ = '';
+     const result = allChampionData.find((item)=>{
+         if(item[bannedId]){
+             champ = item[bannedId];
 
-    return result;
+             return item[bannedId];
+         }
+     })
+     //console.log('champpppppp',champ);
+     return champ;
 
  }
   
  
- export{change,changeNameByIds,changeNameByIds2,getAllChampionData,filteringBannedChampion}
+ export{change,changeNameByIds,changeNameByIds2,getAllChampionData,FilteringBannedChampion}
