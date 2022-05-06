@@ -26,7 +26,7 @@ const ChampionDetail = () =>{
                             <div className="champion_image01">
                                  <img src={`https://opgg-static.akamaized.net/images/lol/champion/${value.id}.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_264&v=1651762875310`}/>
                             </div>   
-                                 <span className="champ_name01">{value.name}</span><br/>
+                                 <span className="champ_name01">{value.name} ({value.tags.map((item)=>{return(<>{item}</>)})}) # {value.title}</span><br/>
                                  <span className="passive_image01"><img src={`https://ddragon.leagueoflegends.com/cdn/${cdn_version}/img/passive/${value.passive.image.full}`}/></span>
                                  {value.spells.map((item)=>{
                                      return(
@@ -35,6 +35,45 @@ const ChampionDetail = () =>{
                                           </span>
                                      )
                                  })}
+                        <div className="champion_info">
+                            <h3>기본 능력치</h3>
+                            {value.stats.armor}
+                            {value.stats.armorperlevel}
+                            {value.stats.attackdamage}
+                            {value.stats.attackdamageperlevel}
+                            {value.stats.attackrange}
+                            {value.stats.attackspeed}
+                            {value.stats.attackspeedperlevel}
+                            {value.stats.crit}
+                            {value.stats.crit}
+                            {value.stats.crit}
+                            {value.stats.crit}
+                            {value.stats.crit}
+                            {value.stats.crit}
+                            {value.stats.crit}
+                            
+                            
+                            <h3>챔피언 소개</h3>
+                            <p>{value.lore}</p>
+                            <h3>챔피언 팁</h3>
+                            {value.allytips.map((item)=>{
+                                return(
+                                    <div>
+                                        {item}
+                                    </div>
+                                )
+                            })}
+                            <h3>상대법</h3>
+                            {value.enemytips.map((item)=>{
+                                return(
+                                    <div>
+                                        {item}
+                                    </div>
+                                )
+                            })}
+
+                        </div>
+
                         <div className="skillExplain">
                             <h2>스킬설명</h2>
                             <h3> 패시브 </h3>

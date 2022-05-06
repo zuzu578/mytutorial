@@ -249,6 +249,7 @@ a{
 }
 .champion_image01 img{
   width:10%;
+  border-radius: 100px;
 }
 .champ_name01{
   padding-left: 10px;
