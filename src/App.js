@@ -7,16 +7,26 @@ import { RotationChampionList } from './component/rotationChampionList';
 import { championArrs } from './util/changeNameByIds';
 import { SummonerInfo } from './page/summonerInfo';
 import { Route } from 'react-router-dom';
+import { getAllChampionData } from './util/changeNameByIds';
+import { ChampionInfo } from './page/championInfo';
 
 const App = () => {
+
   const [getRotationChamps,setRotationChamps] = useState([]);
-  
+  const [championData , setChapionData] = useState([]);
+
   useEffect(()=>{
     getFreeChampions()
     .then(async(res)=>{
       const rotationChampionList = await change(res.data.freeChampionIds);
       setRotationChamps(rotationChampionList);
     })
+
+     // 모든 챔피언 list 를 key value 로 가져온다.
+     getAllChampionData()
+     .then((res)=>{
+         setChapionData(res);
+     })
     .catch((error)=>{
       console.log(error.message);
     })
@@ -27,13 +37,15 @@ const App = () => {
   return (
     <div className="App">
        <Route exact path="/find"> 
-        <SummonerInfo/>
+        <SummonerInfo />
       </Route>
       <Route exact path="/"> 
         <Main/>
         <RotationChampionList getRotationChamps= {getRotationChamps}/>
       </Route>
-      
+      <Route exact path="/champion"> 
+      <ChampionInfo championData={championData}/>
+      </Route>
       
     </div>
 
