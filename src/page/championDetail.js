@@ -37,20 +37,14 @@ const ChampionDetail = () =>{
                                  })}
                         <div className="champion_info">
                             <h3>기본 능력치</h3>
-                            {value.stats.armor}
-                            {value.stats.armorperlevel}
-                            {value.stats.attackdamage}
-                            {value.stats.attackdamageperlevel}
-                            {value.stats.attackrange}
-                            {value.stats.attackspeed}
-                            {value.stats.attackspeedperlevel}
-                            {value.stats.crit}
-                            {value.stats.crit}
-                            {value.stats.crit}
-                            {value.stats.crit}
-                            {value.stats.crit}
-                            {value.stats.crit}
-                            {value.stats.crit}
+                            기본방어력:{value.stats.armor}<br/>
+                            기본공격력:{value.stats.attackdamage}<br/>
+                            사거리:{value.stats.attackrange}<br/>
+                            기본공격속도:{value.stats.attackspeed}<br/>
+                            체력:{value.stats.hp}   <br/>               
+                            이동속도:{value.stats.movespeed}<br/>
+                            마나:{value.stats.mp}<br/>
+                           
                             
                             
                             <h3>챔피언 소개</h3>
