@@ -19,15 +19,7 @@ const RotationChampionList = (params) => {
                                 )
                             })}
                         </div>
-                    // <div>
-                    //     <div key={item.id}>
-                        
-                    //         <div className="flex-box">
-                    //             <img src={'https://opgg-static.akamaized.net/images/lol/champion/'+item.champions+'.png?image=q_auto:best&v=1635906101'}/> 
-                    //         </div>
-                    //         </div>
-
-                    // </div>
+                 
                     )
                     })} 
                 </div>

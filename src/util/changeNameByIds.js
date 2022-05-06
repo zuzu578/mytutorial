@@ -51,6 +51,13 @@
   * test
   */
 
+ const getChampionData = async() => {
+    const res = await axios.get('https://ddragon.leagueoflegends.com/cdn/' + version + '/data/ko_KR/champion.json');
+    let championList = res.data.data;
+    //console.log('championList=========>',championList);
+    return championList;
+ }
+
  const changeNameByIds2 = async() =>{
     const res = await axios.get('http://ddragon.leagueoflegends.com/cdn/' + version + '/data/de_DE/champion.json')
     let championList = res.data.data;
@@ -61,7 +68,7 @@
         let list = [];
         let obj = {};
         const championList =  await changeNameByIds2();
-        console.log('championList == == == >' , championList);
+        //console.log('championList == == == >' , championList);
         for (let i in championList) {
             obj = {
                 [championList[i].key]:championList[i].id
@@ -90,4 +97,4 @@
  }
   
  
- export{change,changeNameByIds,changeNameByIds2,getAllChampionData,FilteringBannedChampion}
+ export{change,changeNameByIds,changeNameByIds2,getAllChampionData,FilteringBannedChampion,getChampionData}

@@ -44,7 +44,7 @@ const App = () => {
         <RotationChampionList getRotationChamps= {getRotationChamps}/>
       </Route>
       <Route exact path="/champion"> 
-      <ChampionInfo championData={championData}/>
+      <ChampionInfo/>
       </Route>
       
     </div>
