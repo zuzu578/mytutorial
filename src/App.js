@@ -9,6 +9,7 @@ import { SummonerInfo } from './page/summonerInfo';
 import { Route } from 'react-router-dom';
 import { getAllChampionData } from './util/changeNameByIds';
 import { ChampionInfo } from './page/championInfo';
+import { ChampionDetail } from './page/championDetail';
 
 const App = () => {
 
@@ -45,6 +46,9 @@ const App = () => {
       </Route>
       <Route exact path="/champion"> 
       <ChampionInfo/>
+      </Route>
+      <Route exact path="/championDetail">
+      <ChampionDetail/>
       </Route>
       
     </div>

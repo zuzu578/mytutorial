@@ -21,9 +21,9 @@ const ChampionInfo = () => {
                 return (
                     <div key={key}>
                         <div className="champ_image_list">
-                           <a href={value.id}><img src={`https://opgg-static.akamaized.net/images/lol/champion/${value.id}.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_264&v=1651762875310`}/></a>
+                           <a href={`championDetail?name=${value.id}`}><img src={`https://opgg-static.akamaized.net/images/lol/champion/${value.id}.png?image=c_crop,h_103,w_103,x_9,y_9/q_auto,f_webp,w_264&v=1651762875310`}/></a>
                         </div>
-                        <a href={value.id}>{value.name}</a>
+                        <a href={`championDetail?name=${value.id}`}>{value.name}</a>
                     </div>
                 )
 		})}
